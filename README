@@ -1,0 +1,8 @@
+NAME
+    Message::Passing::Redis - Adaptor for Redis PubSub
+
+SYNOPSIS
+DESCRIPTION
+AUTHOR
+    Tomas (t0m) Doran <bobtfish@bobtfish.net>
+
