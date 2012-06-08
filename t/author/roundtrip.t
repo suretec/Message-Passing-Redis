@@ -25,11 +25,11 @@ my $timer; $timer = AnyEvent->timer(after => 2, cb => sub {
     $this_cv->send;
 });
 $this_cv->recv;
-$output->consume({foo => 'bar'});
+$output->consume('bar');
 $cv->recv;
 
 is $input->output_to->message_count, 1;
-is_deeply([$input->output_to->messages], [{foo => 'bar'}]);
+is_deeply([$input->output_to->messages], ['bar']);
 
 done_testing;
 

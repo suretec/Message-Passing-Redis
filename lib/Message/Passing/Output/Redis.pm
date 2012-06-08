@@ -15,9 +15,8 @@ has topic => (
 sub consume {
     my $self = shift;
     my $data = shift;
-    my $bytes = $self->encode($data);
     my $headers = undef;
-    $self->connection_manager->connection->publish($self->topic, $bytes);
+    $self->connection_manager->connection->publish($self->topic, $data);
 }
 
 sub connected {}

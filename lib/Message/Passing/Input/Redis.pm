@@ -27,7 +27,7 @@ sub connected {
         @{ $self->topics },
         sub {
             my ($message, $topic, $subscribed_topic) = @_;
-            $self->output_to->consume($self->decode($message));
+            $self->output_to->consume($message);
         },
     );
     $self->_handle(AnyEvent->io(
