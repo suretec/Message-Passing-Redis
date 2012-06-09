@@ -1,3 +1,4 @@
+0.004
   - Allow a string for a single topic, rather than forcing a list
     of one item in Message::Passing::Input::Redis
 
