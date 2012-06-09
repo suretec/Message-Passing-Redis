@@ -1,3 +1,9 @@
+  - Allow a string for a single topic, rather than forcing a list
+    of one item in Message::Passing::Input::Redis
+
+  - Support subscription to patterns of topics in
+    Message::Passing::Input::Redis using 'ptopics' attribute.
+
 0.003
   - Add some documentation.
 

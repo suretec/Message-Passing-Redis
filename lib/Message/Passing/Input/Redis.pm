@@ -1,6 +1,7 @@
 package Message::Passing::Input::Redis;
 use Moose;
 use Scalar::Util qw/ weaken /;
+use Message::Passing::Redis::Types qw/ ArrayOfStr /;
 use namespace::autoclean;
 
 with qw/
@@ -9,9 +10,17 @@ with qw/
 /;
 
 has topics => (
-    isa => 'ArrayRef[Str]',
+    isa => ArrayOfStr,
+    coerce => 1,
     is => 'ro',
-    required => 1,
+    default => sub { [] },
+);
+
+has ptopics => (
+    isa => ArrayOfStr,
+    coerce => 1,
+    is => 'ro',
+    default => sub { [] },
 );
 
 has _handle => (
@@ -29,7 +38,14 @@ sub connected {
             my ($message, $topic, $subscribed_topic) = @_;
             $self->output_to->consume($message);
         },
-    );
+    ) if @{ $self->topics };
+    $client->psubscribe(
+        @{ $self->ptopics },
+        sub {
+            my ($message, $topic, $subscribed_topic) = @_;
+            $self->output_to->consume($message);
+        },
+    ) if @{ $self->ptopics };
     $self->_handle(AnyEvent->io(
         fh   => $client->{sock},
         poll => "r",
@@ -67,7 +83,16 @@ The hostname and port number of the Redis server. Defaults to C<< 127.0.0.1:6379
 
 =head2 topics
 
-The list of topics to consume messages from.
+A list of topics to consume messages from.
+
+These topic names are matched exactly.
+
+=head2 ptopics
+
+A list of pattern topics to consume messages from.
+
+These topic names can wildcard match, so for example C<< prefix1.* >>
+will match topics C<< prefix1.foo >> and C<< prefix1.bar >>.
 
 =head1 METHODS
 

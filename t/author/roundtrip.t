@@ -9,14 +9,14 @@ use Message::Passing::Output::Test;
 
 my $cv = AnyEvent->condvar;
 my $input = Message::Passing::Input::Redis->new(
-    topics => ["log_stash_test"],
+    topics => "log_stash.test",
     output_to => Message::Passing::Output::Test->new(
         cb => sub { $cv->send }
     ),
 );
 
 my $output = Message::Passing::Output::Redis->new(
-    topic => "log_stash_test",
+    topic => "log_stash.test",
 );
 
 my $this_cv = AnyEvent->condvar;
@@ -30,6 +30,34 @@ $cv->recv;
 
 is $input->output_to->message_count, 1;
 is_deeply([$input->output_to->messages], ['bar']);
+
+my $other_output = Message::Passing::Output::Redis->new(
+    topic => "log_stash.foo",
+);
+
+$cv = AnyEvent->condvar;
+my $other_input = Message::Passing::Input::Redis->new(
+    ptopics => "log_stash.*",
+    output_to => Message::Passing::Output::Test->new(
+        cb => sub { $cv->send }
+    ),
+);
+
+$this_cv = AnyEvent->condvar;
+$timer = AnyEvent->timer(after => 2, cb => sub {
+    undef $timer;
+    $this_cv->send;
+});
+$this_cv->recv;
+$output->consume('quux');
+$other_output->consume('fnord');
+$cv->recv;
+
+is $input->output_to->message_count, 2;
+is_deeply([$input->output_to->messages], ['bar', 'quux']);
+
+is $other_input->output_to->message_count, 2;
+is_deeply([$other_input->output_to->messages], ['quux', 'fnord']);
 
 done_testing;
 
