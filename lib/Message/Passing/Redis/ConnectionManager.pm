@@ -6,10 +6,16 @@ use namespace::autoclean;
 
 with 'Message::Passing::Role::ConnectionManager';
 
-has server => (
+has hostname => (
     is => 'ro',
     isa => 'Str',
     required => 1,
+);
+
+has port => (
+    is => 'ro',
+    isa => 'Int',
+    default => 6379,
 );
 
 sub _build_connection {
@@ -17,7 +23,7 @@ sub _build_connection {
     weaken($self);
     my $client = Redis->new(
         encoding => undef,
-        server => $self->server,
+        server => sprintf("%s:%s", $self->hostname, $self->port),
     );
     # Delay calling set_connected till we've finished building the client
     my $i; $i = AnyEvent->idle(cb => sub {

@@ -30,7 +30,7 @@ Message::Passing::Output::Redis - A Redis publisher for Message::Passing
 
 =head1 SYNOPSIS
 
-    $ message-passing --input STDIN --output Redis --output_options '{"topic":"foo","server":"127.0.0.1:6379"}'
+    $ message-passing --input STDIN --output Redis --output_options '{"topic":"foo","hostname":"127.0.0.1","port":"6379"}'
 
 =head1 DESCRIPTION
 
@@ -38,9 +38,13 @@ A simple message output which publishes messages to a Redis PubSub topic.
 
 =head1 ATTRIBUTES
 
-=head2 server
+=head2 hostname
 
-The hostname and port number of the Redis server. Defaults to C<< 127.0.0.1:6379 >>.
+The hostname of the Redis server. Required.
+
+=head2 port
+
+The port number of the Redis server. Defaults to 6379.
 
 =head2 topic
 

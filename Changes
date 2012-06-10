@@ -1,6 +1,10 @@
   - Remove Message::Passing::Redis::Types - types we need are
     now in the core Message::Passing type library.
 
+  - Change 'server' attribute to 'hostname' and 'port' attributes,
+    with the hostname being mandatory and the port having a default,
+    to match other components.
+
 0.004
   - Allow a string for a single topic, rather than forcing a list
     of one item in Message::Passing::Input::Redis
