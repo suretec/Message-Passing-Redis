@@ -1,3 +1,6 @@
+  - Remove Message::Passing::Redis::Types - types we need are
+    now in the core Message::Passing type library.
+
 0.004
   - Allow a string for a single topic, rather than forcing a list
     of one item in Message::Passing::Input::Redis

@@ -12,7 +12,7 @@ resources(
     repository => "git://github.com/suretec/Message-Passing-Redis.git",
 );
 
-requires 'Message::Passing' => '0.006';
+requires 'Message::Passing' => '0.008';
 requires 'Redis';
 
 test_requires 'Test::More' => '0.88';

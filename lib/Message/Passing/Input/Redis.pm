@@ -1,7 +1,7 @@
 package Message::Passing::Input::Redis;
 use Moose;
 use Scalar::Util qw/ weaken /;
-use Message::Passing::Redis::Types qw/ ArrayOfStr /;
+use Message::Passing::Types qw/ ArrayOfStr /;
 use namespace::autoclean;
 
 with qw/
