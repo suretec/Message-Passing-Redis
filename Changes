@@ -1,3 +1,4 @@
+0.005
   - Remove Message::Passing::Redis::Types - types we need are
     now in the core Message::Passing type library.
 
