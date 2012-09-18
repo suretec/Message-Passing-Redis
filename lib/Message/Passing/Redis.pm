@@ -4,7 +4,7 @@ use warnings;
 use Redis;
 use namespace::clean -except => 'meta';
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 $VERSION = eval $VERSION;
 
 1;
