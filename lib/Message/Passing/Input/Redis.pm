@@ -79,7 +79,7 @@ Message::Passing::Input::Redis - A Redis consumer for Message::Passing
 
 =head1 SYNOPSIS
 
-    $ message-passing --output STDOUT --input Redis --input_options '{"topics":["foo"],"hostname":"127.0.0.1","port":"6379"}'
+    $ message-pass --output STDOUT --input Redis --input_options '{"topics":["foo"],"hostname":"127.0.0.1","port":"6379"}'
 
 =head1 DESCRIPTION
 

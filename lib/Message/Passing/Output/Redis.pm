@@ -31,7 +31,7 @@ Message::Passing::Output::Redis - A Redis publisher for Message::Passing
 
 =head1 SYNOPSIS
 
-    $ message-passing --input STDIN --output Redis --output_options '{"topic":"foo","hostname":"127.0.0.1","port":"6379"}'
+    $ message-pass --input STDIN --output Redis --output_options '{"topic":"foo","hostname":"127.0.0.1","port":"6379"}'
 
 =head1 DESCRIPTION
 
