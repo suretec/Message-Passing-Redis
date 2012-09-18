@@ -2,6 +2,7 @@ package Message::Passing::Redis;
 use strict;
 use warnings;
 use Redis;
+use namespace::clean -except => 'meta';
 
 our $VERSION = '0.005';
 $VERSION = eval $VERSION;

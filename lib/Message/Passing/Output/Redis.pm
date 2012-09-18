@@ -1,5 +1,7 @@
 package Message::Passing::Output::Redis;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ Str /;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Redis::Role::HasAConnection
@@ -7,7 +9,7 @@ with qw/
 /;
 
 has topic => (
-    isa => 'Str',
+    isa => Str,
     is => 'ro',
     required => 1,
 );
@@ -21,7 +23,6 @@ sub consume {
 
 sub connected {}
 
-__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 NAME
