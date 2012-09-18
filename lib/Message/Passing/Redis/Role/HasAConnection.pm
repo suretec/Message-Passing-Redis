@@ -1,7 +1,7 @@
 package Message::Passing::Redis::Role::HasAConnection;
-use Moose::Role;
+use Moo::Role;
 use Message::Passing::Redis::ConnectionManager;
-use namespace::autoclean;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Role::HasAConnection

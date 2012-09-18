@@ -1,8 +1,9 @@
 package Message::Passing::Input::Redis;
-use Moose;
+use Moo;
+use MooX::Types::MooseLike::Base qw/ ArrayRef Str /;
 use Scalar::Util qw/ weaken /;
-use Message::Passing::Types qw/ ArrayOfStr /;
-use namespace::autoclean;
+use AnyEvent;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Redis::Role::HasAConnection
@@ -10,15 +11,25 @@ with qw/
 /;
 
 has topics => (
-    isa => ArrayOfStr,
-    coerce => 1,
+    isa => ArrayRef[Str],
+    coerce => sub {
+        my $str = shift;
+        return $str     if     ref $str eq 'ARRAY';
+        return [ $str ] unless ref $str;
+        return [];
+    },
     is => 'ro',
     default => sub { [] },
 );
 
 has ptopics => (
-    isa => ArrayOfStr,
-    coerce => 1,
+    isa => ArrayRef[Str],
+    coerce => sub {
+        my $str = shift;
+        return $str     if     ref $str eq 'ARRAY';
+        return [ $str ] unless ref $str;
+        return [];
+    },
     is => 'ro',
     default => sub { [] },
 );
@@ -60,7 +71,6 @@ sub disconnect {
     $self->_clear_handle;
 }
 
-__PACKAGE__->meta->make_immutable;
 1;
 
 =head1 NAME
@@ -69,7 +79,7 @@ Message::Passing::Input::Redis - A Redis consumer for Message::Passing
 
 =head1 SYNOPSIS
 
-    $ message-passing --output STDOUT --input Redis --input_options '{"topics":["foo"],"hostname":"127.0.0.1","port":"6379"}'
+    $ message-pass --output STDOUT --input Redis --input_options '{"topics":["foo"],"hostname":"127.0.0.1","port":"6379"}'
 
 =head1 DESCRIPTION
 

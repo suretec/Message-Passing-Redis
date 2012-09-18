@@ -1,8 +1,9 @@
 package Message::Passing::Redis::ConnectionManager;
-use Moose;
+use Moo;
 use Scalar::Util qw/ weaken /;
 use Redis;
-use namespace::autoclean;
+use AnyEvent;
+use namespace::clean -except => 'meta';
 
 with qw/
     Message::Passing::Role::ConnectionManager
@@ -25,6 +26,5 @@ sub _build_connection {
     return $client;
 }
 
-__PACKAGE__->meta->make_immutable;
 1;
 
