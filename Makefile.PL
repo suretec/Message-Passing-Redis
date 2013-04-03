@@ -7,7 +7,7 @@ use Module::Install::Authority;
 
 license 'perl';
 all_from 'lib/Message/Passing/Redis.pm';
-authority('GHENRY');
+authority('cpan:GHENRY');
 resources(
     repository => "git://github.com/suretec/Message-Passing-Redis.git",
 );
