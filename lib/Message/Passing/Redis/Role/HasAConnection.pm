@@ -20,7 +20,6 @@ has every => (
 );
 sub _default_port { 6379 }
 
-use Data::Printer;
 sub _build_connection_manager {
     my $self = shift;
     Message::Passing::Redis::ConnectionManager->new(map { $_ => $self->$_() }
